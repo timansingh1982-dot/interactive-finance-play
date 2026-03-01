@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BarChart3, Home } from "lucide-react";
+import { TrendingUp, BarChart3, Home, BookOpen } from "lucide-react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -8,6 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     { path: "/", label: "Home", icon: Home },
     { path: "/tools/goal-simulator", label: "Goal Simulator", icon: TrendingUp },
     { path: "/tools/liquidation-visualizer", label: "Liquidation", icon: BarChart3 },
+    { path: "/articles/compound-interest", label: "Articles", icon: BookOpen, match: "/articles" },
   ];
 
   return (
@@ -21,35 +22,45 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <span className="font-heading font-bold text-lg">Visual Finance Lab</span>
           </Link>
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === item.path
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                }`}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = item.match
+                ? location.pathname.startsWith(item.match)
+                : location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
           <nav className="flex md:hidden items-center gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`p-2 rounded-lg transition-colors ${
-                  location.pathname === item.path
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <item.icon className="h-5 w-5" />
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = item.match
+                ? location.pathname.startsWith(item.match)
+                : location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`p-2 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <item.icon className="h-5 w-5" />
+                </Link>
+              );
+            })}
           </nav>
         </div>
       </header>
@@ -57,6 +68,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <footer className="border-t border-border/50 py-8 mt-20">
         <div className="container text-center text-sm text-muted-foreground">
           <p>Visual Finance Lab — Interactive financial simulators for smarter decisions.</p>
+          <div className="flex justify-center gap-4 mt-3 flex-wrap">
+            <Link to="/tools/goal-simulator" className="hover:text-foreground transition-colors">Goal Simulator</Link>
+            <Link to="/tools/liquidation-visualizer" className="hover:text-foreground transition-colors">Liquidation Visualizer</Link>
+            <Link to="/articles/compound-interest" className="hover:text-foreground transition-colors">Articles</Link>
+          </div>
         </div>
       </footer>
     </div>

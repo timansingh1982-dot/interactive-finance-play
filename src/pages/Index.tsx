@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
-import { TrendingUp, BarChart3, ArrowRight, Target, ShieldAlert, Lightbulb, Zap } from "lucide-react";
+import { TrendingUp, BarChart3, ArrowRight, Target, ShieldAlert, Lightbulb, Zap, BookOpen } from "lucide-react";
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/tools/SEOHead";
+
+const BASE_URL = "https://visualfinancelab.com";
 
 const Index = () => {
   return (
     <Layout>
+      <SEOHead
+        title="Visual Finance Lab — Interactive Financial Simulators"
+        description="Free interactive tools to visualize savings goals, compound growth, and leverage liquidation risk. No sign-up required."
+        breadcrumbs={[{ name: "Home", url: BASE_URL }]}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden py-20 md:py-32">
         <div className="absolute inset-0 opacity-30" style={{ background: "var(--gradient-hero)" }} />
@@ -113,6 +122,28 @@ const Index = () => {
                 Trading with leverage amplifies gains — and losses. Most traders don't realize how close they are to liquidation. Our visualizer makes that invisible threshold visible and actionable.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Articles Section */}
+      <section className="py-16 md:py-24 border-t border-border/50">
+        <div className="container max-w-4xl">
+          <div className="flex items-center gap-3 mb-8">
+            <BookOpen className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl md:text-3xl font-heading font-bold">Learn More</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { to: "/articles/compound-interest", title: "How Compound Interest Grows Wealth", desc: "Understand the most powerful force in personal finance and how to harness it." },
+              { to: "/articles/leverage-trading", title: "What Leverage Does to Traders", desc: "Why most leveraged traders lose money and how to manage amplified risk." },
+              { to: "/articles/safe-risk-levels", title: "How to Set Safe Risk Levels", desc: "Practical position sizing and risk management for investors and traders." },
+            ].map((a) => (
+              <Link key={a.to} to={a.to} className="glass-card p-5 hover:border-primary/20 transition-colors group">
+                <h3 className="text-sm font-heading font-semibold mb-1 group-hover:text-primary transition-colors">{a.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{a.desc}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
