@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import GoalSimulator from "./pages/GoalSimulator";
 import LiquidationVisualizer from "./pages/LiquidationVisualizer";
+import CompoundInterest from "./pages/articles/CompoundInterest";
+import LeverageTrading from "./pages/articles/LeverageTrading";
+import SafeRiskLevels from "./pages/articles/SafeRiskLevels";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +23,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/tools/goal-simulator" element={<GoalSimulator />} />
           <Route path="/tools/liquidation-visualizer" element={<LiquidationVisualizer />} />
+          <Route path="/articles/compound-interest" element={<CompoundInterest />} />
+          <Route path="/articles/leverage-trading" element={<LeverageTrading />} />
+          <Route path="/articles/safe-risk-levels" element={<SafeRiskLevels />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
